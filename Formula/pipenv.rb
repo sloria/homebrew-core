@@ -48,8 +48,11 @@ class Pipenv < Formula
     }
     (bin/"pipenv").write_env_script(libexec/"bin/pipenv", env)
 
-    output = Utils.popen_read("#{libexec}/bin/pipenv --completion")
+    output = Utils.popen_read("SHELL=bash #{libexec}/bin/pipenv --completion")
     (bash_completion/"pipenv").write output
+
+    output = Utils.popen_read("SHELL=zsh #{libexec}/bin/pipenv --completion")
+    (zsh_completion/"_pipenv").write output
   end
 
   # Avoid relative paths
